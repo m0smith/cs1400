@@ -20,7 +20,7 @@ public class Game1400_1 {
         int score = 0;
         
         // Show the board
-        System.out.println("Play about a nice game of tic-tac-toe?");
+        System.out.println("How about a nice game of tic-tac-toe?");
         System.out.println("1|2|3");
         System.out.println("-+-+-");
         System.out.println("4|5|6");
