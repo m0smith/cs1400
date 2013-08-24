@@ -13,7 +13,7 @@ public class Game1400_1 {
      */
     
     public static void main(String[] args) {
-        int score = 0;
+        int score;
         
         // Show the board
         System.out.println("How about a nice game of tic-tac-toe?");
