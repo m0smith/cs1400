@@ -3,8 +3,15 @@ package game1400;
 import java.util.Scanner;
 
 /**
- *  This is a game of tic-tac-toe
- * @author Smith
+ *  This is a game of tic-tac-toe.
+ * 
+ * This version demonstrates:<ul>
+ * <li>output (println, print, printf)
+ * <li>input (Scanner)
+ * <li>arithmetic
+ * <li>variables
+ * <ul>
+ * @author Matthew Smith
  */
 public class Game1400_1 {
 
@@ -14,9 +21,10 @@ public class Game1400_1 {
     
     public static void main(String[] args) {
         int score;
+        String header = "How about a nice game of tic-tac-toe?";
         
         // Show the board
-        System.out.println("How about a nice game of tic-tac-toe?");
+        System.out.println(header);
         System.out.println("1|2|3");
         System.out.println("-+-+-");
         System.out.println("4|5|6");
