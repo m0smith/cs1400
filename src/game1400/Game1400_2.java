@@ -3,7 +3,7 @@ package game1400;
 import java.util.Scanner;
 
 /**
- * This is a game of tic-tac-toe.
+ * This is a game of tic-tac-toe version 2.
  *
  * The board is represented by the variables p1 through p9 thusly:
  * 
@@ -15,11 +15,12 @@ import java.util.Scanner;
  *   p7 | p8 | p9
  * </pre>
  *
- * They can only contain:
+ * They can only contain:<ul>
  * <li>a number - if the square is not claimed
  * <li>X - if owned by player 1
  * <li>O - if owned by player 2
- *
+ *</ul>
+ * 
  * Thus far we can:<ul>
  * <li>
  *    display the board and ask the user for input.
@@ -44,7 +45,7 @@ import java.util.Scanner;
  * </ul>
  *
  * @author Matthew Smith
- * * @see <a href="https://www.github.com/m0smith/cs1400">Sample Code Repo</a>
+ * @see <a href="https://www.github.com/m0smith/cs1400">Sample Code Repo</a>
  */
 public class Game1400_2 {
 
@@ -89,8 +90,9 @@ public class Game1400_2 {
 
         // Validate the move
         boolean playerMoved = true;
+        boolean tooSmall = position < 0;
 
-        if (position < 0) {
+        if (tooSmall) {
             playerMoved = false;
             System.out.printf("%d is not a valid move\n", position);
             System.out.println("This is a classic game of tic-tac-toe");
