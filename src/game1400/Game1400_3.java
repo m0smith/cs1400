@@ -49,17 +49,13 @@ public class Game1400_3 {
     /**
      * Version of the code
      */
-    private String version = "version 3";
-    /**
-     * Define player 1 (the human)
-     */
-    private char player1 = 'X';
-    /**
-     * Define player 2 (the computer)
-     */
-    private char player2 = 'O';
-    private char cat = '=';
-    private char unknown = '?';
+    private String VERSION = "version 3";
+    
+    private final char PLAYER1 = 'X';
+    private final char PLAYER2 = 'O';
+    private final char CAT     = '=';
+    private final char UNKNOWN = '?';
+    
     // initialize the board
     private Square p1 = new Square('1');
     private Square p2 = new Square('2');
@@ -70,6 +66,7 @@ public class Game1400_3 {
     private Square p7 = new Square('7');
     private Square p8 = new Square('8');
     private Square p9 = new Square('9');
+    
     private String header = "How about a nice game of tic-tac-toe?";
 
     /**
@@ -77,7 +74,8 @@ public class Game1400_3 {
      */
     public static void main(String[] args) {
         Game1400_3 ticTacToe = new Game1400_3();
-        ticTacToe.playGame();
+        char result = ticTacToe.playGame();
+        System.out.printf ("END OF PROGRAM:%c\n" ,result);
     }
 
     private char playGame() {
@@ -90,8 +88,8 @@ public class Game1400_3 {
             header = "Nice move";
             showBoard();
         }
-        char status = gameStatus();
-        if(status == unknown){
+        char status = findWinner();
+        if (status == UNKNOWN) {
             return playGame();
         }
         header = "Game Over:" + status;
@@ -99,17 +97,9 @@ public class Game1400_3 {
         return status;
     }
 
-    char gameStatus() {
-        char rtnval = findWinner();
-
-        if (rtnval == unknown) {
-        }
-        return rtnval;
-    }
-
     private void showBoard() {
         // Show the board
-        System.out.printf("%s (%s)%n", header, version);
+        System.out.printf("%s (%s)%n", header, VERSION);
         System.out.printf("%c|%c|%c%n", p1.display(), p2.display(), p3.display());
         System.out.println("-+-+-");
         System.out.printf("%c|%c|%c%n", p4.display(), p5.display(), p6.display());
@@ -118,7 +108,7 @@ public class Game1400_3 {
     }
 
     private int userInput() {
-        System.out.printf("It is %c's turn.\nEnter your move [1-9](0=help)=>", player1);
+        System.out.printf("It is %c's turn.\nEnter your move [1-9](0=help)=>", PLAYER1);
         Scanner scanner = new Scanner(System.in);
         int position = scanner.nextInt();
         return position;
@@ -148,40 +138,44 @@ public class Game1400_3 {
     private void updateBoard(int position) {
         // Update the board
         if (position == 1) {
-            p1.claim(player1);
+            p1.claim(PLAYER1);
         }
         if (position == 2) {
-            p2.claim(player1);
+            p2.claim(PLAYER1);
         }
         if (position == 3) {
-            p3.claim(player1);
+            p3.claim(PLAYER1);
         }
         if (position == 4) {
-            p4.claim(player1);
+            p4.claim(PLAYER1);
         }
         if (position == 5) {
-            p5.claim(player1);
+            p5.claim(PLAYER1);
         }
         if (position == 6) {
-            p6.claim(player1);
+            p6.claim(PLAYER1);
         }
         if (position == 7) {
-            p7.claim(player1);
+            p7.claim(PLAYER1);
         }
         if (position == 8) {
-            p8.claim(player1);
+            p8.claim(PLAYER1);
         }
         if (position == 9) {
-            p9.claim(player1);
+            p9.claim(PLAYER1);
         }
     }
 
+    /**
+     * Computer makes a move (artifical intelligence?) Computer no longer
+     * cheats
+     */
     private void computerMove() {
         // Computer makes a move (artifical intelligence?)
         // Computer  no longer cheats
         Square square = findOpenSquare();
-        if(square != null){
-            square.claim(player2);
+        if (square != null) {
+            square.claim(PLAYER2);
         }
     }
 
@@ -194,78 +188,82 @@ public class Game1400_3 {
         char rtnval = p1.display();
 
         if (rtnval != p2.display()) {
-            rtnval = unknown;
+            rtnval = UNKNOWN;
         }
         if (rtnval != p3.display()) {
-            rtnval = unknown;
+            rtnval = UNKNOWN;
         }
         return rtnval;
     }
 
     private char findWinner() {
         char rtnval = threeInARow(p1, p2, p3);
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p1, p5, p9);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p1, p4, p7);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p2, p5, p8);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p3, p6, p9);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p3, p5, p7);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p4, p5, p6);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = threeInARow(p7, p8, p9);
         }
-        if (rtnval == unknown) {
+        if (rtnval == UNKNOWN) {
             rtnval = findCat();
         }
         return rtnval;
     }
 
+    /**
+     *
+     * @return unknown if the game is not over or cat if it is a tie
+     */
     private char findCat() {
-        char rtnval = unknown;
+        char rtnval = UNKNOWN;
         Square openSquare = findOpenSquare();
-        if(openSquare == null){
-            rtnval = cat;
+        if (openSquare == null) {
+            rtnval = CAT;
         }
         return rtnval;
     }
 
     private Square findOpenSquare() {
-        if(! p5.isClaimed()) {
+        if (!p5.isClaimed()) {
             return p5;
         }
         if (!p1.isClaimed()) {
             return p1;
         }
-        if(! p9.isClaimed()) {
+        if (!p9.isClaimed()) {
             return p9;
         }
-        if(! p7.isClaimed()) {
+        if (!p7.isClaimed()) {
             return p7;
         }
         if (!p3.isClaimed()) {
             return p3;
         }
-        if(! p6.isClaimed()) {
+        if (!p6.isClaimed()) {
             return p6;
         }
         if (!p2.isClaimed()) {
             return p2;
         }
-        if(! p4.isClaimed()) {
+        if (!p4.isClaimed()) {
             return p4;
         }
-        if(! p8.isClaimed()) {
+        if (!p8.isClaimed()) {
             return p8;
         }
         return null;
