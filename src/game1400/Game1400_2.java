@@ -61,6 +61,7 @@ public class Game1400_2 {
         char player2 = 'O';
 
         // initialize the board
+        
         char p1 = '1';
         char p2 = '2';
         char p3 = '3';

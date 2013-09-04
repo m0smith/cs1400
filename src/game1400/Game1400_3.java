@@ -94,6 +94,7 @@ public class Game1400_3 {
         }
         header = "Game Over:" + status;
         showBoard();
+        
         return status;
     }
 
@@ -164,6 +165,7 @@ public class Game1400_3 {
         if (position == 9) {
             p9.claim(PLAYER1);
         }
+        
     }
 
     /**
@@ -173,7 +175,8 @@ public class Game1400_3 {
     private void computerMove() {
         // Computer makes a move (artifical intelligence?)
         // Computer  no longer cheats
-        Square square = findOpenSquare();
+        Square square;
+        square = findOpenSquare();
         if (square != null) {
             square.claim(PLAYER2);
         }
@@ -184,13 +187,13 @@ public class Game1400_3 {
         System.out.println("You enter a number between 1 and 9 to claim that square.");
     }
 
-    private char threeInARow(Square p1, Square p2, Square p3) {
-        char rtnval = p1.display();
+    private char threeInARow(Square square1, Square square2, Square square3) {
+        char rtnval = square1.display();
 
-        if (rtnval != p2.display()) {
+        if (rtnval != square2.display()) {
             rtnval = UNKNOWN;
         }
-        if (rtnval != p3.display()) {
+        if (rtnval != square3.display()) {
             rtnval = UNKNOWN;
         }
         return rtnval;

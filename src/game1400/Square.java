@@ -4,17 +4,17 @@ package game1400;
  *
  * @author Smith
  */
-class Square {
+public class Square {
 
     private char name;
     private char owner;
     private boolean claimed = false;
 
-    Square(char c) {
+    public Square(char c) {
         name = c;
     }
 
-    boolean claim(char player) {
+    public boolean claim(char player) {
         boolean rtnval = false;
         if (!claimed) {
             claimed = true;
@@ -24,11 +24,11 @@ class Square {
         return rtnval;
     }
 
-    boolean isClaimed() {
+    public boolean isClaimed() {
         return claimed;
     }
 
-    char display() {
+    public char display() {
         char rtnval = name;
         if (claimed) {
             rtnval = owner;
