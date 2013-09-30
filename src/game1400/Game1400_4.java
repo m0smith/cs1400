@@ -82,6 +82,32 @@ public class Game1400_4 {
         char result = ticTacToe.playGame();
         System.out.printf("END OF PROGRAM:%c\n", result);
     }
+    
+    
+    int sum(int n){
+        int total = 0;
+        
+        int j =0;
+
+        do {
+            total += j;
+            j++;
+        } while (j <= n);
+        
+//        while(j <= n) {
+//            // j++
+//            int k = j;
+//            j = j + 1;
+//            total += k;
+//        }
+        
+        for(int i = 0 ; i <= n;  ++i ) {
+            total += i;
+        }
+
+        return total;
+    }
+    
     /**
      * Let the players take turns until the game is over.
      * @return the final result: PLAYER1, PLAYER2 or CAT
@@ -244,8 +270,13 @@ public class Game1400_4 {
      * @return unknown if the game is not over or cat if it is a tie
      */
     private char findCat() {
+        // boolean exp ? true value : false value
         Square openSquare = findOpenSquare();
-        return openSquare == null ? CAT : UNKNOWN;
+        int y = 9;
+        return (openSquare == null) ? CAT : UNKNOWN;
+
+        
+         
     }
 
     private Square findOpenSquare() {

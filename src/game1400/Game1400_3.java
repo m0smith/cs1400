@@ -140,7 +140,7 @@ public class Game1400_3 {
         // Update the board
         if (position == 1) {
             p1.claim(PLAYER1);
-        }
+        } 
         if (position == 2) {
             p2.claim(PLAYER1);
         }
