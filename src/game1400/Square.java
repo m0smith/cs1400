@@ -10,8 +10,19 @@ public class Square {
     private char owner;
     private boolean claimed = false;
 
+    public Square() {
+    }
+    
     public Square(char c) {
         name = c;
+    }
+    
+    public void setName(char n) {
+        name = n;
+    }
+    
+    public char getName() {
+        return name;
     }
 
     public boolean claim(char player) {
