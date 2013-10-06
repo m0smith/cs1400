@@ -196,27 +196,27 @@ public class Game1400_6 {
     }
 
     private char findWinner() {
-        char rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(2), board.getSquaureFor(3));
+        char rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(2), board.getSquareFor(3)); 
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(5), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(5), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(4), board.getSquaureFor(7));
+            rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(4), board.getSquareFor(7));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(2), board.getSquaureFor(5), board.getSquaureFor(8));
+            rtnval = threeInARow(board.getSquareFor(2), board.getSquareFor(5), board.getSquareFor(8));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(3), board.getSquaureFor(6), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(6), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(3), board.getSquaureFor(5), board.getSquaureFor(7));
+            rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(5), board.getSquareFor(7));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(4), board.getSquaureFor(5), board.getSquaureFor(6));
+            rtnval = threeInARow(board.getSquareFor(4), board.getSquareFor(5), board.getSquareFor(6));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(7), board.getSquaureFor(8), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(7), board.getSquareFor(8), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
             rtnval = findCat();
@@ -235,7 +235,7 @@ public class Game1400_6 {
 
     private Square findOpenSquare() {
         for(int i = 1; i <= 9; ++i){
-            Square sq = board.getSquaureFor(i);
+            Square sq = board.getSquareFor(i);
             if(! sq.isClaimed()) {
                 return sq;
             }
