@@ -17,6 +17,11 @@ public class Square {
         name = c;
     }
     
+    public void init(){
+        owner = 0;
+        claimed = false;
+    }
+    
     public void setName(char n) {
         name = n;
     }

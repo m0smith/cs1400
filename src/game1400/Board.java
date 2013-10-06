@@ -33,11 +33,7 @@ public class Board {
     
     public Board()
     {
-        char n = '1';
-        for(int i = 1; i <= 9; ++i) {
-            Square s = getSquaureFor(i);
-            s.setName(n++);
-        }
+        init();
     }
     
     public void claimSquare(int position, char player){
@@ -91,6 +87,15 @@ public class Board {
                 break;
         }
         return sq;
+    }
+
+    public void init() {
+        char n = '1';
+        for(int i = 1; i <= 9; ++i) {
+            Square s = getSquaureFor(i);
+            s.init();
+            s.setName(n++);
+        }
     }
     
 }
