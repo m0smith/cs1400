@@ -37,21 +37,21 @@ public class Board {
     }
     
     public void claimSquare(int position, char player){
-        Square sq = getSquaureFor(position);
+        Square sq = getSquareFor(position);
         if(sq != null) {
             sq.claim(player);
         }
     }
     
     public char display(int position) {
-        Square sq = getSquaureFor(position);
+        Square sq = getSquareFor(position);
         if(sq != null) {
             return sq.display();
-        }
+        } 
         return ' ';
     }
     
-    public Square getSquaureFor(int position) {
+    public Square getSquareFor(int position) {
         Square sq = null;
         switch (position) {
             case 1:
@@ -89,12 +89,14 @@ public class Board {
         return sq;
     }
 
+
     public void init() {
         char n = '1';
         for(int i = 1; i <= 9; ++i) {
-            Square s = getSquaureFor(i);
+            Square s = getSquareFor(i); 
             s.init();
             s.setName(n++);
+
         }
     }
     

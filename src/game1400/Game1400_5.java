@@ -48,6 +48,8 @@ public class Game1400_5 {
     private final char PLAYER2   = 'O';
     private final char CAT       = '=';
     private final char UNKNOWN   = '?';
+    
+    private final int BOARD_SIZE = 9;
    
     private String header = "How about a nice game of tic-tac-toe?";
 
@@ -71,11 +73,14 @@ public class Game1400_5 {
             boolean playerMoved = validate(position);
             if (playerMoved) {
                 board.claimSquare(position, PLAYER1);
-                computerMove();
-                header = "Nice move";
-                showBoard();
+                status = findWinner();
+                if(status == UNKNOWN) {
+                    computerMove(position);
+                    header = "Nice move";
+                    showBoard();
+                    status = findWinner();
+                } 
             }
-            status = findWinner();
         }
         header = "Game Over:" + status;
         showBoard();
@@ -84,12 +89,21 @@ public class Game1400_5 {
 
     private void showBoard() {
         // Show the board
-        System.out.printf("%s (%s)%n", header, VERSION);
-        System.out.printf("%c|%c|%c%n", board.display(1), board.display(2), board.display(3));
-        System.out.println("-+-+-");
-        System.out.printf("%c|%c|%c%n", board.display(4), board.display(5), board.display(6));
-        System.out.println("-+-+-");
-        System.out.printf("%c|%c|%c%n", board.display(7), board.display(8), board.display(9));
+        System.out.printf("%s (%s)", header, VERSION);
+        
+        int pos = 1;
+        String row = "";
+        for(int i = 0; i < 3; ++i) {
+            System.out.println(row);
+            String sep = "";
+            for(int j = 0; j < 3; ++j){
+                System.out.printf("%s%c", sep, board.display(pos++));
+                //System.out.printf("i=%d j=%d\n", i,j);
+                sep = "|";
+            }
+            System.out.println();
+            row = "-+-+-";
+        }
     }
 
     private int userInput() {
@@ -106,7 +120,7 @@ public class Game1400_5 {
             playerMoved = false;
             System.out.printf("%d is not a valid move\n", position);
             showHelp();
-        } else if (position > 9) {
+        } else if (position > BOARD_SIZE) {
             playerMoved = false;
             System.out.printf("%d is not a valid move\n", position);
             showHelp();
@@ -120,13 +134,28 @@ public class Game1400_5 {
     /**
      * Computer makes a move (artifical intelligence?) Computer no longer cheats
      */
-    private void computerMove() {
+    private void computerMove(int position) {
         // Computer makes a move (artifical intelligence?)
         // Computer  no longer cheats
-        Square square = findOpenSquare();
-        if (square != null) {
-            square.claim(PLAYER2);
+        
+        int computerPos = 3;
+        for(int i = 1; i < BOARD_SIZE; ++i) {
+           computerPos += 2;
+           if(computerPos > 9) {
+               computerPos = 2;
+           }
+           Square sq = board.getSquareFor(computerPos);
+           if(! sq.isClaimed()) {
+               sq.claim(PLAYER2);
+               return;
+           }
         }
+        
+        
+        //Square square = findOpenSquare();
+        //if (square != null) {
+        //    square.claim(PLAYER2);
+        //}
     }
 
     private void showHelp() {
@@ -147,27 +176,27 @@ public class Game1400_5 {
     }
 
     private char findWinner() {
-        char rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(2), board.getSquaureFor(3));
+        char rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(2), board.getSquareFor(3));
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(5), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(5), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(1), board.getSquaureFor(4), board.getSquaureFor(7));
+            rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(4), board.getSquareFor(7));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(2), board.getSquaureFor(5), board.getSquaureFor(8));
+            rtnval = threeInARow(board.getSquareFor(2), board.getSquareFor(5), board.getSquareFor(8));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(3), board.getSquaureFor(6), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(6), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(3), board.getSquaureFor(5), board.getSquaureFor(7));
+            rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(5), board.getSquareFor(7));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(4), board.getSquaureFor(5), board.getSquaureFor(6));
+            rtnval = threeInARow(board.getSquareFor(4), board.getSquareFor(5), board.getSquareFor(6));
         }
         if (rtnval == UNKNOWN) {
-            rtnval = threeInARow(board.getSquaureFor(7), board.getSquaureFor(8), board.getSquaureFor(9));
+            rtnval = threeInARow(board.getSquareFor(7), board.getSquareFor(8), board.getSquareFor(9));
         }
         if (rtnval == UNKNOWN) {
             rtnval = findCat();
@@ -185,8 +214,9 @@ public class Game1400_5 {
     }
 
     private Square findOpenSquare() {
-        for(int i = 1; i <= 9; ++i){
-            Square sq = board.getSquaureFor(i);
+        
+        for(int i = 1; i <= BOARD_SIZE; ++i){
+            Square sq = board.getSquareFor(i);
             if(! sq.isClaimed()) {
                 return sq;
             }
