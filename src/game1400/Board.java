@@ -89,7 +89,8 @@ public class Board {
         return sq;
     }
 
-
+    
+    
     public void init() {
         char n = '1';
         for(int i = 1; i <= 9; ++i) {

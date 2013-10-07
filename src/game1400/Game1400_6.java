@@ -3,7 +3,7 @@ package game1400;
 import java.util.Scanner;
 
 /**
- * This is a game of tic-tac-toe version 5.
+ * This is a game of tic-tac-toe version 6.
  *
  * Thus far we can:<ul>
  * <li>
@@ -45,7 +45,7 @@ public class Game1400_6 {
     private final char PLAYER1   = 'X';
     private final char PLAYER2   = 'O';
     private final char CAT       = '=';
-    private final char UNKNOWN   = '?';
+    private final char IN_PLAY   = '?';
     private final char QUIT      = 'Q';
    
 
@@ -66,14 +66,14 @@ public class Game1400_6 {
 
     
     private Score playGames(){
-        char status = UNKNOWN;
+        char status;
         do {
             status = wantToPlayAGame();
             if(status != QUIT){
                 board.init();
                 status = playGame();
             }
-            if(status != QUIT) {
+            if(status != QUIT && status != IN_PLAY) {
                 score.addWin(status);
             }
         } while (status != QUIT );
@@ -85,16 +85,21 @@ public class Game1400_6 {
             System.out.printf("%s (%s)%n", "How about a nice game of tic-tac-toe?", VERSION);
             System.out.printf("1 = Yes, let us play%n");
             System.out.printf("2 = No, let us quit%n");
+            System.out.printf("3 = Show me the score%n");
             System.out.printf("Any Other = Help%n");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             switch(choice) {
                 case 1:
-                    return UNKNOWN;
+                    return IN_PLAY;
                 case 2:
                     return QUIT;
+                case 3:
+                    System.out.println(score.display());
+                    break;
                 default:
                     showHelp();
+                    break;
                 
             }
         }
@@ -106,9 +111,9 @@ public class Game1400_6 {
      * @return the final result: PLAYER1, PLAYER2 or CAT
      */
     private char playGame() {
-        char status = UNKNOWN;
+        char status = IN_PLAY;
         showBoard();
-        while (status == UNKNOWN) {
+        while (status == IN_PLAY) {
             int position = userInput();
             if(position == -1) {
                 return QUIT;
@@ -187,38 +192,38 @@ public class Game1400_6 {
         char rtnval = p1.display();
 
         if (rtnval != p2.display()) {
-            rtnval = UNKNOWN;
+            rtnval = IN_PLAY;
         }
         if (rtnval != p3.display()) {
-            rtnval = UNKNOWN;
+            rtnval = IN_PLAY;
         }
         return rtnval;
     }
 
     private char findWinner() {
         char rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(2), board.getSquareFor(3)); 
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(5), board.getSquareFor(9));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(1), board.getSquareFor(4), board.getSquareFor(7));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(2), board.getSquareFor(5), board.getSquareFor(8));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(6), board.getSquareFor(9));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(3), board.getSquareFor(5), board.getSquareFor(7));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(4), board.getSquareFor(5), board.getSquareFor(6));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = threeInARow(board.getSquareFor(7), board.getSquareFor(8), board.getSquareFor(9));
         }
-        if (rtnval == UNKNOWN) {
+        if (rtnval == IN_PLAY) {
             rtnval = findCat();
         }
         return rtnval;
@@ -230,7 +235,7 @@ public class Game1400_6 {
      */
     private char findCat() {
         Square openSquare = findOpenSquare();
-        return openSquare == null ? CAT : UNKNOWN;
+        return openSquare == null ? CAT : IN_PLAY;
     }
 
     private Square findOpenSquare() {
