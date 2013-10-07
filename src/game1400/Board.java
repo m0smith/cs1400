@@ -33,7 +33,7 @@ public class Board {
     
     public Board()
     {
-        init();
+        initInternal();
     }
     
     public void claimSquare(int position, char player){
@@ -52,7 +52,7 @@ public class Board {
     }
     
     public Square getSquareFor(int position) {
-        Square sq = null;
+        Square sq;
         switch (position) {
             case 1:
                 sq = p1;
@@ -92,12 +92,15 @@ public class Board {
     
     
     public void init() {
+        initInternal();
+    }
+    
+    private void initInternal() {
         char n = '1';
         for(int i = 1; i <= 9; ++i) {
             Square s = getSquareFor(i); 
             s.init();
             s.setName(n++);
-
         }
     }
     
