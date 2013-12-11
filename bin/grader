@@ -2,7 +2,6 @@
 
 
 function compile_dir {
-    set -x
     pushd $1
     if [ "$os" = "Cygwin" ]; then
 	cdir=`cygpath -w $2`
@@ -11,7 +10,6 @@ function compile_dir {
     fi
     find . -name \*.java | grep -v __MACOSX | xargs javac -classpath "$classpath" -d "$cdir"
     popd
-    set +x
 }
 
 # $1 = Assignment name
