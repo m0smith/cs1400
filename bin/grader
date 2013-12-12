@@ -2,14 +2,19 @@
 
 
 function compile_dir {
-    pushd $1
-    if [ "$os" = "Cygwin" ]; then
-	cdir=`cygpath -w $2`
+    if [ -d $1 ]; then
+	
+	pushd $1
+	if [ "$os" = "Cygwin" ]; then
+    	    cdir=`cygpath -w $2`
+	else
+    	    cdir=$2
+	fi
+	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 javac -classpath "$classpath" -d "$cdir"
+	popd
     else
-	cdir=$2
+	echo "Failed to compile non-existant dir: $1"
     fi
-    find . -name \*.java | grep -v __MACOSX | xargs javac -classpath "$classpath" -d "$cdir"
-    popd
 }
 
 # $1 = Assignment name
