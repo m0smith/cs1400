@@ -1,6 +1,10 @@
 #!/usr/bin/bash
 
 
+pushd `dirname $0`"/.."
+prjdir=`pwd`
+popd
+
 function compile_dir {
     if [ -d $1 ]; then
 	
@@ -10,6 +14,7 @@ function compile_dir {
 	else
     	    cdir=$2
 	fi
+	echo "Compiling $d"
 	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 javac -classpath "$classpath" -d "$cdir"
 	popd
     else
@@ -26,7 +31,7 @@ if [ -z "$1" ]; then
     exit 2
 fi
 
-reqdir=$HOME/projects/cs1400/src/req/$1
+reqdir="$prjdir/src/req/$1"
 reqclasses=/tmp/$1/classes
 
 classpath=.:$reqclasses
@@ -40,7 +45,7 @@ test -d /tmp/$1 &&  rm -rf /tmp/$1
 cp $subzip /tmp/$1.zip
 mkdir -p $reqclasses
 
-compile_dir $reqdir $reqclasses
+compile_dir "$reqdir" $reqclasses
 
 cd /tmp/$1
 unzip /tmp/$1.zip
