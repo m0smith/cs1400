@@ -88,7 +88,7 @@ do
     test -d classes || mkdir classes
     compile_dir . classes
     ##find . -name \*.java | grep -v __MACOSX | xargs javac -d classes
-    emacsclient -n `find . -name \*.java ` &
+    emacsclient `find . -name \*.java ` &
 
     cd classes
 
