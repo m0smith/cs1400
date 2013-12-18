@@ -15,7 +15,12 @@ function compile_dir {
     	    cdir=$2
 	fi
 	echo "Compiling $d"
-	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 javac -classpath "$classpath" -d "$cdir"
+	set -x
+	encoding=
+	encodingopt=
+	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 file | grep -i UTF-8 && encoding="UTF-8" && encodingopt="-encoding"
+	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 javac -classpath "$classpath" $encodingopt $encoding -d "$cdir"
+	set +x
 	popd
     else
 	echo "Failed to compile non-existant dir: $1"
