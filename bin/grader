@@ -15,12 +15,10 @@ function compile_dir {
     	    cdir=$2
 	fi
 	echo "Compiling $d"
-	set -x
 	encoding=
 	encodingopt=
 	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 file | grep -i UTF-8 && encoding="UTF-8" && encodingopt="-encoding"
 	find . -name \*.java -print0 | grep -zv __MACOSX | xargs -0 javac -classpath "$classpath" $encodingopt $encoding -d "$cdir"
-	set +x
 	popd
     else
 	echo "Failed to compile non-existant dir: $1"
@@ -80,6 +78,11 @@ do
 
     for z in `find . -name  \*.zip`; do
 	unzip $z
+    done
+
+    for z in `find . -name  \*.7z`; do
+	7za l $z
+	7za x $z
     done
 
     test -d classes || mkdir classes
